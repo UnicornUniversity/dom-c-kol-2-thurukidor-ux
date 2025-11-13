@@ -1,35 +1,41 @@
-//TODO add imports if needed
-//import { exMain } from "./exclude/exampleAss2.js"
-//TODO add/change doc as needed
-/**
- * TODO - Write functional code for this application. You can call any other function, but usage of ".toString(numberSystem)" and "Number.parseInt(number, numberSystem)" is forbidden (only permitted when used on individual digits).
- * The main function which calls the application. 
- * TODO - Please, add specific description here for the application purpose.
- * @param {string} inputNumber number that is being converted
- * @param {number} inputNumberSystem numerical system that the inputNumber is being converted from
- * @param {number} outputNumberSystem numerical system that the inputNumber is being converted into
- * @returns {string} containing number converted to output system
- */
-export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
-  //TODO code
-  //let dtoOut = exMain(inputNumber, inputNumberSystem, outputNumberSystem);
-  return dtoOut;
+// Říká testům, že vstup bude binární (základ 2)
+function permittedInputSystems() {
+    return 2; 
+}
+
+// Říká testům, že výstup bude dekadický (základ 10)
+function permittedOutputSystems() {
+    return 10; 
 }
 
 /**
- * TODO - Change this to contain all input number systems that your application can convert from.
- * Function which returns which number systems are permitted on input.
- * @returns {Array} array of numbers refering to permitted input systems
+ * převod čísel 
+ * @param {string} inputNumber binární číslo 
+ * @returns {string} číslo v desítkové soustavě 
  */
-export function permittedInputSystems() {
-	return [10, 2];
-}
+function main(inputNumber, inputNumberSystem, outputNumberSystem) {
+    
+    // (2 -> 10).
+    if (inputNumberSystem !== 2 || outputNumberSystem !== 10) {
+        return "Chyba: Nepodporovaná konverze"; 
+    }
 
-/**
- * TODO - Change this to contain all output number systems that your application can convert to.
- * Function which returns which number systems are permitted on output.
- * @returns {Array} array of numbers refering to permitted output systems
- */
-export function permittedOutputSystems() {
-	return [10, 2];
+    let dekadickyVysledek = 0;
+    let mocnina = 1; //
+
+    // procházíme binární číslo 
+    for (let i = inputNumber.length - 1; i >= 0; i--) {
+        const cislice = inputNumber[i];
+        
+        // Pokud je bit '1', přičteme aktuální mocninu dvojky k výsledku
+        if (cislice === '1') {
+            dekadickyVysledek = dekadickyVysledek + mocnina;
+        } 
+        
+        // zdvojnásobíme mocninu pro další pozici vlevo
+        mocnina = mocnina * 2; 
+    }
+
+    // vrátíme výsledek převedený na řetězec
+    return dekadickyVysledek.toString(); 
 }
