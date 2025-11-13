@@ -1,40 +1,48 @@
-//==============================================================================
-// MAIN.JS - KONEČNÁ A SPRÁVNÁ VERZE PRO SUBMISSION
-// Upraveno na vracení pole (Array) pro kompatibilitu s testy.
-//==============================================================================
-
-// Vstup bude binární (základ 2)
-export function permittedInputSystems() { 
-    return [2]; // OPRAVA: Vracíme pole s číslem 2
+// Definuje, že vstup bude binární soustava (základ 2).
+function permittedInputSystems() {
+    return 2; 
 }
 
-// Výstup bude dekadický (základ 10)
-export function permittedOutputSystems() {
-    return [10]; // OPRAVA: Vracíme pole s číslem 10
+// Definuje, že výstup bude dekadická soustava (základ 10).
+function permittedOutputSystems() {
+    return 10; 
 }
 
-
-export function main(inputNumber, inputNumberSystem, outputNumberSystem) { 
-        
-    // Kontrolujeme, zda je konverze z 2 do 10 (jak je nastaveno výše)
+/**
+ * Hlavní konverzní funkce, kterou volají automatické testy.
+ */
+function main(inputNumber, inputNumberSystem, outputNumberSystem) {
+    
+    // Kontrola, zda provádíme očekávanou konverzi.
     if (inputNumberSystem !== 2 || outputNumberSystem !== 10) {
-        return "Chyba: Nepodporovaná konverze"; 
+        return "Chyba: Konverze není podporována touto implementací"; 
     }
 
     let dekadickyVysledek = 0;
-    let mocnina = 1; 
+    let mocnina = 1; // 2^0 = 1
 
-    // Procházíme binární číslo odzadu (od LSB)
+    // Implementace převodu Binární -> Dekadická
+    // Procházíme řetězec od konce (od LSB)
     for (let i = inputNumber.length - 1; i >= 0; i--) {
         const cislice = inputNumber[i];
         
+        // Pokud je bit '1', přičteme aktuální mocninu dvojky.
         if (cislice === '1') {
             dekadickyVysledek = dekadickyVysledek + mocnina;
-        } 
+        } 
         
-        mocnina = mocnina * 2; 
+        // Zdvojnásobíme mocninu pro další bit.
+        mocnina = mocnina * 2; 
     }
 
-    // Vrátíme výsledek jako řetězec
-    return dekadickyVysledek.toString(); 
+    // Vrátíme výsledek jako řetězec.
+    return dekadickyVysledek.toString(); 
 }
+
+// *** EXPORT funkcí pro testovací systém ***
+// Zajišťuje, že testy najdou a spustí potřebné funkce.
+module.exports = {
+    main,
+    permittedInputSystems,
+    permittedOutputSystems
+};
